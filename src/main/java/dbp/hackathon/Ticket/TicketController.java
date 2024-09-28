@@ -1,8 +1,11 @@
 package dbp.hackathon.Ticket;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import dbp.hackathon.email.event.EmailEvent;
 
 @RestController
 @RequestMapping("/tickets")
@@ -11,9 +14,14 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
     @PostMapping
     public ResponseEntity<Ticket> createTicket(@RequestBody TicketRequest request) {
-        Ticket newTicket = ticketService.createTicket(request.getEstudianteId(), request.getFuncionId(), request.getCantidad());
+        Ticket newTicket = ticketService.createTicket(request.getEstudianteId(), request.getFuncionId(),
+                request.getCantidad());
+        applicationEventPublisher.publishEvent(new EmailEvent(TicketController.class, newTicket));
         return ResponseEntity.ok(newTicket);
     }
 
