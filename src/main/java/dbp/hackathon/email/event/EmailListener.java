@@ -13,7 +13,7 @@ public class EmailListener {
 
     @Async
     @EventListener
-    public void sendEmail() {
-
+    public void sendEmail(EmailEvent event) {
+        emailService.sendEmail(event.getTicket());
     }
 }
