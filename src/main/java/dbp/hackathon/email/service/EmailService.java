@@ -25,8 +25,12 @@ public class EmailService {
     @Autowired
     SpringTemplateEngine templateEngine;
 
+    @Autowired
+    QRapiService qrService;
+
     @Async
     public void sendEmail(Ticket ticket) throws MessagingException {
+        String qr = qrService.getQR(ticket.getId()).block();
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         Context context = new Context();
@@ -36,7 +40,7 @@ public class EmailService {
         context.setVariable("fechaFuncion", ticket.getFechaCompra());
         context.setVariable("cantidadEntradas", ticket.getCantidad());
         context.setVariable("precioTotal", ticket.getFuncion().getPrecio() * ticket.getCantidad());
-        context.setVariable("qr", ticket.getQr());
+        context.setVariable("qr", qr);
 
         String htmlContent = templateEngine.process("emailTemplate", context);
 

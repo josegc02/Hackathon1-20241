@@ -12,12 +12,12 @@ public class QRapiService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public Mono<String> getQR() {
+    public Mono<String> getQR(Long id) {
         return webClientBuilder.baseUrl("http://api.qrserver.com")
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("data", "HelloWorld!")
+                        .queryParam("data", id)
                         .queryParam("size", "100x100")
                         .build())
                 .retrieve()
