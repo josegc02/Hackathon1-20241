@@ -1,5 +1,14 @@
 package dbp.hackathon.email.event;
 
-public class EmailEvent {
+import org.springframework.context.ApplicationEvent;
 
+import lombok.Getter;
+
+@Getter
+public class EmailEvent extends ApplicationEvent {
+
+    public EmailEvent(Object source) {
+        super(source);
+
+    }
 }
