@@ -3,21 +3,49 @@
 
 <head>
     <title>¡Gracias por tu compra!</title>
+    <style>
+        body {
+            text-align: center;
+            /* Centra el texto del cuerpo */
+        }
+
+        .qr-container {
+            display: flex;
+            /* Usa flexbox para centrar */
+            justify-content: center;
+            /* Centra horizontalmente */
+            align-items: center;
+            /* Centra verticalmente */
+            margin-top: 20px;
+            /* Espacio encima del código QR */
+        }
+
+        .qr-container img {
+            width: 300px;
+            /* Ajusta el tamaño como desees */
+            height: 300px;
+            /* Ajusta el tamaño como desees */
+        }
+    </style>
 </head>
 
 <body>
-    <h1>¡Gracias por tu compra!</h1>
-    <p>¡Hola <span th:text="${nombre}"></span>! Te informamos que tu compra ha sido exitosa. A continuación, te
-        presentamos los detalles de tu compra:</p>
+    <h1 style="font-size: 24px;">¡Gracias por tu compra!</h1>
+    <p style="font-size: 16px;">¡Hola <span th:text="${nombre}"></span>! Te informamos que tu compra ha sido exitosa. A
+        continuación, te presentamos los detalles de tu compra:</p>
     <ul>
         <li>Nombre de la película: <span th:text="${nombrePelicula}"></span></li>
         <li>Fecha de la función: <span th:text="${fechaFuncion}"></span></li>
         <li>Cantidad de entradas: <span th:text="${cantidadEntradas}"></span></li>
         <li>Precio total: <span th:text="${precioTotal}"></span></li>
-        <li>Código QR: <img th:src="${qr}" alt="Código QR"></li>
+        <li>Código QR:
+            <div class="qr-container">
+                <img th:src="${qr}" alt="Código QR para acceso a la función" />
+            </div>
+        </li>
     </ul>
-    <p>¡No olvides llevar tu código QR impreso o en tu dispositivo móvil para poder ingresar a la función! ¡Te
-        esperamos!</p>
+    <p style="font-size: 16px;">¡No olvides llevar tu código QR impreso o en tu dispositivo móvil para poder ingresar a
+        la función! ¡Te esperamos!</p>
 </body>
 
 </html>

@@ -5,10 +5,12 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import dbp.hackathon.email.service.EmailService;
 import jakarta.mail.MessagingException;
 
+@Component
 public class EmailListener {
 
     @Autowired

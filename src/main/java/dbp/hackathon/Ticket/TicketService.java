@@ -4,7 +4,6 @@ import dbp.hackathon.Estudiante.Estudiante;
 import dbp.hackathon.Estudiante.EstudianteRepository;
 import dbp.hackathon.Funcion.Funcion;
 import dbp.hackathon.Funcion.FuncionRepository;
-import dbp.hackathon.QRapi.domain.QRapiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,10 @@ public class TicketService {
         ticket.setCantidad(cantidad);
         ticket.setEstado(Estado.VENDIDO);
         ticket.setFechaCompra(LocalDateTime.now());
+        Ticket withID = ticketRepository.save(ticket);
+        withID.setQr("https://api.qrserver.com/v1/create-qr-code/?data=" + ticket.getId() + "&size=150x150");
 
-        return ticketRepository.save(ticket);
+        return ticketRepository.save(withID);
     }
 
     public Ticket findById(Long id) {
